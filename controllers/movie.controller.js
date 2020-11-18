@@ -60,9 +60,14 @@ function movieDetails(req, res, next) {
             });
 
             const companies = [];
-            result.production_companies.forEach( (company) => {
+            result.production_companies.forEach((company) => {
                 companies.push(company.name);
             });
+
+            let collectionName = "";
+            if (result.belongs_to_collection) {
+                collectionName = result.belongs_to_collection.name;
+            }
 
             res.json({
                 id: result.id,
@@ -73,7 +78,7 @@ function movieDetails(req, res, next) {
                 rating_voters: result.vote_count,
                 overview: result.overview,
                 production_companies: companies,
-                collection: result.belongs_to_collection.name,
+                collection: collectionName,
                 budget: result.budget,
                 revenue: result.revenue
             })
